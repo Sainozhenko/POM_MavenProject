@@ -23,4 +23,10 @@ public class HomePage extends BasePage{
         click(interactions);
         return new SidePanel(driver);
     }
+    @FindBy(xpath = "//h5[.='Forms']")
+    WebElement forms;
+    public SidePanel getForms() {
+        click(forms);
+        return new SidePanel(driver);
+    }
 }

@@ -32,4 +32,12 @@ public class SidePanel extends BasePage{
         clickWithJSExecutor(droppable,0,600);
         return new DroppablePage(driver);
     }
+
+    @FindBy(xpath = "//span[.='Practice Form']")
+    WebElement practiceForm;
+
+    public PracticeFormPage selectPracticeForm() {
+        click(practiceForm);
+        return new PracticeFormPage(driver);
+    }
 }

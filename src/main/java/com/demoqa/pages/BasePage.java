@@ -4,7 +4,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -30,6 +29,14 @@ public abstract class BasePage {
         }
     }
 
+    public void typeWithJSExecutor (WebElement element,String text,int x,int y){
+        if(text!=null){
+            clickWithJSExecutor(element,x ,y);
+            element.clear();
+            element.sendKeys(text);
+        }
+    }
+
     public void clickWithJSExecutor(WebElement element,int x, int y){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy("+x+","+y+")");
@@ -47,6 +54,16 @@ public abstract class BasePage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.getElementById('adplus-anchor').style.display='none';");
 }
+
+    public void hideFooter(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector('footer').style.display='none';");
+    }
+
+    public void hideIframes(){
+        hideAd();
+        hideFooter();
+    }
 
     public void pause(int millis){
         try {
