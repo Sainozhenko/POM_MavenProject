@@ -22,7 +22,9 @@ public class PracticeFormTests extends TestBase{
         new PracticeFormPage(driver).hideIframes();
         new PracticeFormPage(driver).enterPersonalData("Mark","Gonzo","markgonzo@gmail.com","0932229966")
                 .selectGender("Male")
-                .typeDate("05.03.2001")// .typeDate("05 May 1994")
+                .selectDate("April","2004","16")
+//                .typeDate("05.03.2001")
+                // .typeDate("05 May 1994")
                 .addSubject(new String[]{"English", "Computer Science", "Maths"})
                 .selectHobby(new String[]{"Reading","Music","Sports"})
                 .uploadFile("C:/1.png")
@@ -31,6 +33,7 @@ public class PracticeFormTests extends TestBase{
                 .selectCity("Delhi")
                 .submit();
     }
+
 
     @Test
     public void fillPracticeFormWithFinalDataTest(){
@@ -45,9 +48,7 @@ public class PracticeFormTests extends TestBase{
                 .enterAddress(StudentData.ADDRESS)
                 .selectState(StudentData.STATE)
                 .selectCity(StudentData.CITY)
-                .submit();
-
-        WebElement success = driver.findElement(By.id("example-modal-sizes-title-lg"));
-        Assert.assertEquals(success.getText(),"Thanks for submitting the form");
+                .submit()
+                .assertFinal();
     }
 }

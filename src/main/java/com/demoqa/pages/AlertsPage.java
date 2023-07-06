@@ -38,7 +38,14 @@ public class AlertsPage extends BasePage{
 
     public AlertsPage alertButton(){
         click(TimerAlertButton);
-        pause(5000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        Alert alert =wait.until(ExpectedConditions.alertIsPresent());
+
+//        new WebDriverWait(driver, Duration.ofSeconds(5))
+//                .until(ExpectedConditions.alertIsPresent()).accept();
+
+        alert.accept();
+
         return this;
     }
     public boolean isAlertPresent() {
@@ -65,9 +72,27 @@ public class AlertsPage extends BasePage{
     @FindBy(id="confirmButton")
     WebElement confirmButton;
 
+    @FindBy(id="confirmResult")
+    WebElement confirmResult;
+
 
     public AlertsPage acceptAlert() {
         click(confirmButton);
+        return this;
+    }
+
+    public AlertsPage selectAlertConfirm(String text) {
+        click(confirmButton);
+        if(text!=null && text.equals("OK")){
+            driver.switchTo().alert().accept();
+        }else if(text!= null&& text.equals("Cancel")){
+            driver.switchTo().alert().dismiss();
+        }
+        return this;
+    }
+
+    public AlertsPage assertConfirm(String message) {
+        Assert.assertTrue(confirmResult.getText().contains(message));
         return this;
     }
 }

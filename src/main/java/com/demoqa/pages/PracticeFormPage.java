@@ -1,11 +1,10 @@
 package com.demoqa.pages;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 public class PracticeFormPage extends BasePage{
     public PracticeFormPage(WebDriver driver) {
@@ -176,4 +175,32 @@ public class PracticeFormPage extends BasePage{
         actions.moveByOffset(-offSetX,-offSetY).click().perform();
 
     }
+
+@FindBy(css =".react-datepicker__month-select")
+WebElement month;
+
+    @FindBy(css =".react-datepicker__year-select")
+    WebElement year;
+
+    public PracticeFormPage selectDate(String m, String y, String d) {
+        click(dateOfBirthInput);
+
+        Select select = new Select(month);
+        select.selectByVisibleText(m);
+
+        Select select1 = new Select(year);
+        select1.selectByVisibleText(y);
+
+        driver.findElement(By.xpath("//div[.='" + d + "']")).click();
+        return this;
+    }
+    @FindBy(id="example-modal-sizes-title-lg")
+    WebElement success;
+
+    public PracticeFormPage assertFinal(){
+        String expanced = success.getText();
+        Assert.assertEquals("Thanks for submitting the form",expanced);
+        return this;
+    }
+
 }
